@@ -5,6 +5,8 @@ Plugin for running services locally with AIS Service Discovery library.
 This is a series of mock adapters, which can be used with ais-service-discovery-go. Which allows you to communicate between services locally. Or mock them entirely.
 
 ## Use with mocked response
+
+This set-up is the simplest, and allows you to just return some mock responses for specific signatures.
 ```golang
 package main
 
@@ -44,6 +46,10 @@ func main() {
 
 ## Use with a redirected endpoint
 
+This set-up uses the 'redirect' backend, which allows you to define an internal type and endpoint to call instead
+of actual AWS services. In the example below, we set the resolver type to 'http-post', and define an endpoint for 
+a specific service address.
+
 ```golang
 package main
 
@@ -69,8 +75,12 @@ func main() {
 		},
 	}
 
-  // Calls http://localhost:8080 instead
-  d := discovery.NewDiscovery(backend.WithRedirectedBackend(config))
+  d := discovery.NewDiscovery(discovery.WithAWSBackend())
+
+  // If env is local, use the mocked back-end instead
+  if os.Getenv("ENV") == "local" {
+    d := discovery.NewDiscovery(backend.WithRedirectedBackend(config))
+  }
 
   id, err := d.Queue("test.service->queue", types.Request{})
   if err != nil {
@@ -81,3 +91,5 @@ func main() {
 }
 
 ```
+
+
