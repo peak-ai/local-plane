@@ -92,4 +92,8 @@ func main() {
 
 ```
 
-
+## TODO
+- [ ] - Create adapters for requests (functions)
+- [ ] - Create adapters for events
+- [ ] - Better tests
+- [ ] - Error simulation scenarios
