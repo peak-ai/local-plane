@@ -1,6 +1,8 @@
 # Local Plane
 
-Plugin for running services locally with AIS Service Discovery library
+Plugin for running services locally with AIS Service Discovery library.
+
+This is a series of mock adapters, which can be used with ais-service-discovery-go. Which allows you to communicate between services locally. Or mock them entirely.
 
 ## Use with mocked response
 ```golang
